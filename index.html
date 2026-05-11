@@ -43,23 +43,21 @@
     }
     nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
 
-    .nav-logo { display: flex; align-items: center; gap: .5rem; }
-    .logo-through {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 1.9rem;
-      color: var(--navy);
-      letter-spacing: -0.5px;
-    }
-    .logo-air {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 2.6rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
       line-height: 1;
+    }
+    .brand-logo {
+      display: block;
+      width: auto;
+      height: 54px;
+      object-fit: contain;
+    }
+    footer .brand-logo {
+      width: 142px;
+      height: auto;
     }
 
     .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
@@ -535,17 +533,121 @@
     }
     .form-group textarea { resize: vertical; min-height: 80px; }
     .form-submit {
+      display: block;
       width: 100%; padding: .9rem;
       background: var(--grad); color: var(--white);
       border: none; border-radius: 50px;
       font-weight: 700; font-size: 1rem; cursor: pointer;
+      text-align: center;
+      text-decoration: none;
       transition: transform .2s, box-shadow .2s;
     }
     .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(242,101,34,.4); }
 
+    /* ─── WHATSAPP POPUP ─────────────────────────── */
+    .whatsapp-widget {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 180;
+      display: flex;
+      align-items: flex-end;
+      gap: .85rem;
+    }
+    .whatsapp-popup {
+      width: min(300px, calc(100vw - 7rem));
+      background: var(--white);
+      border: 1px solid rgba(27,27,110,.08);
+      border-radius: 16px;
+      box-shadow: 0 18px 50px rgba(27,27,110,.18);
+      padding: 1rem;
+      transform-origin: bottom right;
+      animation: whatsappIn .45s ease both;
+    }
+    @keyframes whatsappIn {
+      from { opacity: 0; transform: translateY(12px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .whatsapp-popup.is-hidden { display: none; }
+    .whatsapp-popup-header {
+      display: flex;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: .5rem;
+    }
+    .whatsapp-popup-title {
+      color: var(--navy);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .whatsapp-close {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      border: none;
+      border-radius: 50%;
+      background: rgba(27,27,110,.06);
+      color: var(--navy);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .whatsapp-popup p {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.5;
+      margin-bottom: .85rem;
+    }
+    .whatsapp-popup-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      width: 100%;
+      min-height: 42px;
+      border-radius: 999px;
+      background: #25D366;
+      color: var(--white);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(37,211,102,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .whatsapp-popup-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37,211,102,.38);
+    }
+    .whatsapp-fab {
+      width: 60px;
+      height: 60px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #25D366;
+      color: var(--white);
+      box-shadow: 0 14px 34px rgba(37,211,102,.42);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .whatsapp-fab:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 42px rgba(37,211,102,.5);
+    }
+    .whatsapp-icon {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
     /* ─── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
+      .brand-logo { height: 48px; }
+      footer .brand-logo { width: 128px; height: auto; }
       .nav-links { display: none; }
       .hero { padding: 6rem 1.5rem 3rem; }
       .hero-visual { display: none; }
@@ -554,6 +656,9 @@
       .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 3rem 1.5rem 1.5rem; }
       .cta-section { padding: 4rem 1.5rem; }
+      .whatsapp-widget { right: 1rem; bottom: 1rem; gap: .65rem; }
+      .whatsapp-popup { width: calc(100vw - 6.5rem); padding: .9rem; }
+      .whatsapp-fab { width: 56px; height: 56px; }
     }
   </style>
 </head>
@@ -561,18 +666,15 @@
 
   <!-- ─── NAV ─────────────────────────────────────── -->
   <nav id="navbar">
-    <div class="nav-logo">
-      <div>
-        <div class="logo-through">through</div>
-        <div class="logo-air">air</div>
-      </div>
-    </div>
+    <a class="nav-logo" href="#" aria-label="Through Air">
+      <img class="brand-logo" src="assets/through-air-logo-no-slogan.png" alt="Through Air" />
+    </a>
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#bots">Bots IA</a></li>
       <li><a href="#precios">Precios</a></li>
       <li><a href="#proceso">Cómo trabajamos</a></li>
-      <li><a href="#contacto" class="nav-cta">Solicitar propuesta</a></li>
+      <li><a href="https://wa.me/message/P6P5S2MEUBSUE1" class="nav-cta" target="_blank" rel="noopener">Solicitar propuesta</a></li>
     </ul>
   </nav>
 
@@ -592,7 +694,7 @@
         No eres un cliente más — eres nuestro aliado.
       </p>
       <div class="hero-actions">
-        <a href="#contacto" class="btn-primary" onclick="openModal()">Solicitar propuesta gratis</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="btn-primary" target="_blank" rel="noopener">Solicitar propuesta gratis</a>
         <a href="#servicios" class="btn-secondary">Ver servicios</a>
       </div>
       <div class="hero-stats">
@@ -689,7 +791,7 @@
           <span class="price-amount">$2.000.000</span>
           <span class="price-period">COP/mes</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('Pautas Digitales')">Empezar ahora →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Empezar ahora →</a>
       </div>
 
       <div class="service-card featured">
@@ -708,7 +810,7 @@
           <span class="price-amount">$3.500.000</span>
           <span class="price-period">COP/mes</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('Redes Sociales')">Solicitar →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Solicitar →</a>
       </div>
 
       <div class="service-card">
@@ -727,7 +829,7 @@
           <span class="price-amount">$2.000.000</span>
           <span class="price-period">COP · único</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('Página Web')">Solicitar →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Solicitar →</a>
       </div>
 
       <div class="service-card">
@@ -746,7 +848,7 @@
           <span class="price-amount">$3.900.000</span>
           <span class="price-period">COP · único</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('E-Commerce')">Solicitar →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Solicitar →</a>
       </div>
 
     </div>
@@ -777,7 +879,7 @@
           <span class="price-amount">$2.500.000</span>
           <span class="price-period">COP · implementación</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('WhatsApp Admin Bot')">Activar bot →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Activar bot →</a>
       </div>
 
       <div class="service-card">
@@ -796,7 +898,7 @@
           <span class="price-amount">$2.000.000</span>
           <span class="price-period">COP · implementación</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('Lead Qualifier Bot')">Solicitar →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Solicitar →</a>
       </div>
 
       <div class="service-card">
@@ -815,7 +917,7 @@
           <span class="price-amount">$2.800.000</span>
           <span class="price-period">COP · implementación</span>
         </div>
-        <a href="#contacto" class="service-cta" onclick="openModal('E-commerce Sales Bot')">Solicitar →</a>
+        <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="service-cta" target="_blank" rel="noopener">Solicitar →</a>
       </div>
 
     </div>
@@ -934,7 +1036,7 @@
   <section class="cta-section" id="contacto">
     <h2>¿Listo para crecer?<br />Ahora estás en buenas manos.</h2>
     <p>Solicita tu propuesta personalizada — sin costo, sin compromisos.</p>
-    <a href="#" class="btn-white" onclick="openModal(); return false;">
+    <a href="https://wa.me/message/P6P5S2MEUBSUE1" class="btn-white" target="_blank" rel="noopener">
       Solicitar propuesta gratuita →
     </a>
   </section>
@@ -943,10 +1045,7 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <div>
-          <span style="font-family:Nunito;font-weight:900;font-size:1.1rem;color:#fff;">through</span>
-          <span style="font-family:Nunito;font-weight:900;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-left:.3rem;">air</span>
-        </div>
+        <img class="brand-logo" src="assets/through-air-logo-no-slogan.png" alt="Through Air" />
         <p>Conectando tu negocio con el mundo. Agencia de marketing digital especializada en empresas colombianas con visión global.</p>
       </div>
       <div class="footer-col">
@@ -1002,8 +1101,30 @@
         <label>Cuéntanos sobre tu negocio</label>
         <textarea placeholder="¿Cuál es tu principal objetivo digital?"></textarea>
       </div>
-      <button class="form-submit">Enviar solicitud →</button>
+      <a class="form-submit" href="https://wa.me/message/P6P5S2MEUBSUE1" target="_blank" rel="noopener">Enviar solicitud →</a>
     </div>
+  </div>
+
+  <!-- ─── WHATSAPP POPUP ──────────────────────────── -->
+  <div class="whatsapp-widget" aria-label="Contacto por WhatsApp">
+    <div class="whatsapp-popup" id="whatsappPopup">
+      <div class="whatsapp-popup-header">
+        <div class="whatsapp-popup-title">¿Quieres llevar tu negocio por los cielos?</div>
+        <button class="whatsapp-close" type="button" onclick="closeWhatsappPopup()" aria-label="Cerrar WhatsApp">&times;</button>
+      </div>
+      <p>Hablemos por WhatsApp y armamos una propuesta digital para tu negocio.</p>
+      <a class="whatsapp-popup-link" href="https://wa.me/message/P6P5S2MEUBSUE1" target="_blank" rel="noopener">
+        <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16.04 3.2A12.74 12.74 0 0 0 5.22 22.68L3.6 28.8l6.27-1.6A12.76 12.76 0 1 0 16.04 3.2Zm0 2.3a10.45 10.45 0 1 1-5.33 19.43l-.38-.23-3.72.95.96-3.62-.25-.39A10.44 10.44 0 0 1 16.04 5.5Zm-4.2 4.75c-.23 0-.6.08-.91.43-.31.35-1.19 1.16-1.19 2.83 0 1.67 1.22 3.29 1.39 3.51.17.23 2.35 3.77 5.82 5.13 2.88 1.13 3.47.91 4.1.85.63-.06 2.03-.83 2.32-1.63.29-.8.29-1.49.2-1.63-.08-.15-.31-.23-.66-.4-.34-.17-2.03-1-2.35-1.12-.31-.11-.54-.17-.77.17-.23.35-.88 1.12-1.08 1.35-.2.23-.4.26-.74.09-.34-.17-1.45-.54-2.77-1.71-1.02-.91-1.71-2.04-1.91-2.38-.2-.35-.02-.53.15-.7.16-.15.34-.4.51-.6.17-.2.23-.35.34-.58.11-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59h-.6Z"/>
+        </svg>
+        Escribir por WhatsApp
+      </a>
+    </div>
+    <a class="whatsapp-fab" href="https://wa.me/message/P6P5S2MEUBSUE1" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+      <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16.04 3.2A12.74 12.74 0 0 0 5.22 22.68L3.6 28.8l6.27-1.6A12.76 12.76 0 1 0 16.04 3.2Zm0 2.3a10.45 10.45 0 1 1-5.33 19.43l-.38-.23-3.72.95.96-3.62-.25-.39A10.44 10.44 0 0 1 16.04 5.5Zm-4.2 4.75c-.23 0-.6.08-.91.43-.31.35-1.19 1.16-1.19 2.83 0 1.67 1.22 3.29 1.39 3.51.17.23 2.35 3.77 5.82 5.13 2.88 1.13 3.47.91 4.1.85.63-.06 2.03-.83 2.32-1.63.29-.8.29-1.49.2-1.63-.08-.15-.31-.23-.66-.4-.34-.17-2.03-1-2.35-1.12-.31-.11-.54-.17-.77.17-.23.35-.88 1.12-1.08 1.35-.2.23-.4.26-.74.09-.34-.17-1.45-.54-2.77-1.71-1.02-.91-1.71-2.04-1.91-2.38-.2-.35-.02-.53.15-.7.16-.15.34-.4.51-.6.17-.2.23-.35.34-.58.11-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59h-.6Z"/>
+      </svg>
+    </a>
   </div>
 
   <script>
@@ -1036,6 +1157,11 @@
     document.getElementById('modal').addEventListener('click', (e) => {
       if (e.target === e.currentTarget) closeModal();
     });
+
+    // WhatsApp popup
+    function closeWhatsappPopup() {
+      document.getElementById('whatsappPopup').classList.add('is-hidden');
+    }
 
     // Animate metric bars on scroll
     const observer = new IntersectionObserver((entries) => {
