@@ -221,28 +221,6 @@
     }
 
     /* ─── CLIENTS ─────────────────────────────────── */
-    .clients {
-      padding: 3rem 4rem;
-      border-top: 1px solid rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      background: var(--gray);
-    }
-    .clients-label {
-      text-align: center; font-size: .8rem; font-weight: 600;
-      color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-    .clients-grid {
-      display: flex; gap: 3rem; justify-content: center; align-items: center;
-      flex-wrap: wrap;
-    }
-    .client-name {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900; font-size: 1.1rem;
-      color: #bbb; transition: color .2s;
-    }
-    .client-name:hover { color: var(--navy); }
-
     /* ─── SERVICES ────────────────────────────────── */
     section { padding: 6rem 4rem; }
 
@@ -280,6 +258,7 @@
       background: var(--grad); opacity: 0;
       transition: opacity .3s;
       border-radius: 20px;
+      pointer-events: none;
     }
     .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
     .service-card:hover::after { opacity: .04; }
@@ -652,8 +631,7 @@
       .hero { padding: 6rem 1.5rem 3rem; }
       .hero-visual { display: none; }
       section { padding: 4rem 1.5rem; }
-      .clients { padding: 2rem 1.5rem; }
-      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+.footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 3rem 1.5rem 1.5rem; }
       .cta-section { padding: 4rem 1.5rem; }
       .whatsapp-widget { right: 1rem; bottom: 1rem; gap: .65rem; }
@@ -756,16 +734,6 @@
   </section>
 
   <!-- ─── CLIENTS ────────────────────────────────────── -->
-  <div class="clients">
-    <div class="clients-label">Empresas que confían en nosotros</div>
-    <div class="clients-grid">
-      <span class="client-name">Sr. Insignia</span>
-      <span class="client-name">Universidad EAN</span>
-      <span class="client-name">WAVED</span>
-      <span class="client-name">ComputerWorld</span>
-    </div>
-  </div>
-
   <!-- ─── SERVICES ──────────────────────────────────── -->
   <section id="servicios">
     <div class="section-label">Lo que hacemos</div>
